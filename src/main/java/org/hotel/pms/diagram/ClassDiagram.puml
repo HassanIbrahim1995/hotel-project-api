@@ -1,0 +1,106 @@
+@startuml
+
+class Address {
+    - Long id
+    - String street
+    - String city
+    - String state
+    - String zipCode
+    - String country
+}
+
+class AppUser {
+    - Long id
+    - String username
+    - String password
+    - Profile profile
+}
+
+class Booking {
+    - Long id
+    - LocalDateTime bookingTime
+    - String status
+    - Reservation reservation
+    - Guest guest
+}
+
+class Department {
+    - Long id
+    - String name
+    - List<Employee> employees
+}
+
+class Guest {
+    - List<Reservation> reservations
+}
+
+class Person {
+    - Long id
+    - String phoneNumber
+    - Name name
+    - LocalDate dateOfBirth
+    - String bsn
+    - Profile profile
+    - List<Address> addresses
+}
+
+class Profile {
+    - Long id
+    - String email
+    - String photoUrl
+    - LocalDate createdAt
+    - LocalDate updatedAt
+    - Person person
+    - AppUser user
+}
+
+class Reservation {
+    - Long id
+    - Guest guest
+    - Room room
+    - LocalDate checkInDate
+    - LocalDate checkOutDate
+    - Transaction transaction
+}
+
+class Room {
+    - Long id
+    - String roomNumber
+    - String type
+    - String status
+    - List<Reservation> reservations
+}
+
+class Transaction {
+    - Long id
+    - BigDecimal amount
+    - LocalDateTime transactionDate
+    - String transactionType
+    - Reservation reservation
+}
+
+class Employee {
+    - String employeeId
+    - String position
+    - Department department
+}
+
+class Name {
+    - String firstName
+    - String middleName
+    - String lastName
+}
+
+Person <|-- Guest
+Person <|-- Employee
+
+Person "1" -- "1" Profile
+Profile "1" -- "*" AppUser
+Person "*" -- "*" Address
+Guest "1" -- "*" Booking
+Booking "1" -- "0..1" Reservation
+Reservation "1" -- "*" Room
+Reservation "1" -- "0..1" Transaction
+Department "1" -- "*" Employee
+
+@enduml

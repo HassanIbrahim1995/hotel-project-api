@@ -1,9 +1,17 @@
 package org.hotel.pms.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("Employee")
-public class Employee extends Person{
+public class Employee extends Person {
+
+    @Column(name = "employee_id")
+    private String employeeId;
+
+    private String position;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

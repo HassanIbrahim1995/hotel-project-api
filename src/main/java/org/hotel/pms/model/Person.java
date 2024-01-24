@@ -20,6 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public class Person {
 
     @Id
